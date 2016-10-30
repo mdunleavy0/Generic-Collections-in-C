@@ -37,6 +37,7 @@ bool List_contains(List, void *);
 List List_empty(List);
 size_t List_find(List, void *);
 void *List_get(List, size_t);
+void *List_head(List);
 List List_insert(List, size_t, void *);
 List List_insertInOrder(List, void *);
 List List_pop(List);
@@ -47,6 +48,7 @@ void List_printData(List);
 List List_remove(List, size_t);
 List List_set(List, size_t, void *);
 List List_sort(List);
+void *List_tail(List);
 
 
 /*
@@ -213,6 +215,15 @@ void *List_get(List ls, size_t idx) {
 
 
 /*
+    Return the element located at the head of the List.
+    Complexity: O(1).
+*/
+void *List_head(List ls) {
+    return ls.head->data;
+}
+
+
+/*
     Insert one element into the List before the element at a given index.
     Complexity: O(index).
 */
@@ -345,7 +356,7 @@ List List_popTail(List ls) {
 
 
 /*
-    Append one element to the front of the list.
+    Prepend one element to the front of the list.
     Complexity: O(1).
 */
 List List_prepend(List ls, void *elem) {
@@ -363,7 +374,7 @@ List List_prepend(List ls, void *elem) {
 
 
 /*
-    Print list to stdout.
+    Print List to stdout.
     Prints meta-attributes as well as all elements.
     A print function is required to define how to print individual elements.
     Complexity: O(n).
@@ -423,7 +434,7 @@ void List_print(List ls) {
 
 
 /*
-    Print list to stdout.
+    Print List to stdout.
     Prints all elements. Does not print meta-attributes.
     A function is required to define how to print individual elements.
     Complexity: O(n).
@@ -602,4 +613,13 @@ List List_sort(List ls) {
         );
         exit(-2);
     }
+}
+
+
+/*
+    Return the element located at the head of the List.
+    Complexity: O(1).
+*/
+void *List_tail(List ls) {
+    return ls.tail->data;
 }

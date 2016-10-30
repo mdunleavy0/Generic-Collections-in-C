@@ -1,6 +1,6 @@
 #include <stdio.h>
 
-#include "../linkedList.c" 
+#include "../linkedList.c"
 
 
 #define SIZE 5
@@ -108,6 +108,25 @@ int main(void) {
         ls = List_append(ls, &unordereds[i]);
     ls = List_sort(ls);
     List_print(ls);
+
+    puts("TAIL");
+    ls = List_empty(ls);
+    for (i = 0; i < SIZE; i++) {
+        ls = List_append(ls, &i);
+        printf("Tail: ");
+        printInt(List_tail(ls));
+        putchar('\n');
+    }
+    putchar('\n');
+
+    puts("HEAD");
+    for (i = 0; i < SIZE; i++) {
+        printf("Tail: ");
+        printInt(List_head(ls));
+        putchar('\n');
+        ls = List_pop(ls);
+    }
+    putchar('\n');
 
     puts("DESTRUCTOR");
     ls = List_destruct(ls);

@@ -157,6 +157,25 @@ int main(void) {
     ls = List_sort(ls);
     List_print(ls);
 
+    puts("TAIL");
+    ls = List_empty(ls);
+    for (i = 0; i < SIZE; i++) {
+        ls = List_append(ls, &ordereds[i]);
+        printf("Tail: ");
+        printNato(List_tail(ls));
+        putchar('\n');
+    }
+    putchar('\n');
+
+    puts("HEAD");
+    for (i = 0; i < SIZE; i++) {
+        printf("Tail: ");
+        printNato(List_head(ls));
+        putchar('\n');
+        ls = List_pop(ls);
+    }
+    putchar('\n');
+
     puts("DESTRUCTOR");
     ls = List_destruct(ls);
     List_print(ls);
