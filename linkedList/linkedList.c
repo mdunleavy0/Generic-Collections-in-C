@@ -11,12 +11,14 @@
 */
 
 
+// (singly) linked list node
 typedef struct ListNode {
     void *data;
     struct ListNode *next;
 } ListNode;
 
 
+// (singly) linked list meta-structure
 typedef struct List {
     ListNode *head, *tail;
     size_t length;
@@ -27,6 +29,7 @@ typedef struct List {
 } List;
 
 
+// List "methods"
 List List_construct(void *(*)(void *), void (*)(void *));
 List List_destruct(List);
 List List_append(List, void *);
@@ -46,6 +49,11 @@ List List_set(List, size_t, void *);
 List List_sort(List);
 
 
+/*
+    Constructor function for List.
+    Initialises List meta-attributes.
+    Complexity: O(1).
+*/
 List List_construct(void *(*copy)(void *), void (*del)(void *)) {
     List ls = {0};
     ls.copy = copy;
@@ -54,6 +62,11 @@ List List_construct(void *(*copy)(void *), void (*del)(void *)) {
 }
 
 
+/*
+    Destructor function for List.
+    Frees all Nodes and resets meta-attributes.
+    Complexity: O(n).
+*/
 List List_destruct(List ls) {
     ls = List_empty(ls);
 
@@ -66,6 +79,10 @@ List List_destruct(List ls) {
 }
 
 
+/*
+    Append one element to the back of the List.
+    Complexity: O(1).
+*/
 List List_append(List ls, void *elem) {
     if (ls.length) {
         ListNode *new = (ListNode *) malloc(sizeof(ListNode));
@@ -84,6 +101,11 @@ List List_append(List ls, void *elem) {
 }
 
 
+/*
+    Test whether an argument element is equivalent to any element in the List.
+    Requires a comparisson function that returns 0 for equivalency.
+    Complexity: O(n).
+*/
 bool List_contains(List ls, void *elem) {
     if (ls.compare) {
         ListNode *cursor;
@@ -108,6 +130,10 @@ bool List_contains(List ls, void *elem) {
 }
 
 
+/*
+    Remove and free all Nodes in the List.
+    Complexity: O(n).
+*/
 List List_empty(List ls) {
     ListNode *cursor, *next;
 
@@ -125,6 +151,13 @@ List List_empty(List ls) {
 }
 
 
+/*
+    Return the index of the first element that is equivalent to an argument
+    element. If no equivalent elements are found, the length of the List is
+    returned.
+    Requires a comparisson function that returns 0 for equivalency.
+    Complexity: O(n).
+*/
 size_t List_find(List ls, void *elem) {
     if (ls.compare) {
         ListNode *cursor;
@@ -150,6 +183,10 @@ size_t List_find(List ls, void *elem) {
 }
 
 
+/*
+    Return the element located at a given index in the List.
+    Complexity: O(index).
+*/
 void *List_get(List ls, size_t idx) {
     if (idx < ls.length) {
         ListNode *cursor;
@@ -175,6 +212,10 @@ void *List_get(List ls, size_t idx) {
 }
 
 
+/*
+    Insert one element into the List before the element at a given index.
+    Complexity: O(index).
+*/
 List List_insert(List ls, size_t idx, void *elem) {
     if (idx == 0)
         return List_prepend(ls, elem);
@@ -212,6 +253,12 @@ List List_insert(List ls, size_t idx, void *elem) {
 }
 
 
+/*
+    Insert one element into the List according to a given ordering.
+    The argument element is inserted before the first List element for which a
+    comparisson function returns a value greater than 0.
+    Complexity: O(n).
+*/
 List List_insertInOrder(List ls, void *elem) {
     if (ls.compare) {
         if (ls.length == 0 || (*ls.compare)(elem, ls.head->data) < 0)
@@ -250,6 +297,10 @@ List List_insertInOrder(List ls, void *elem) {
 }
 
 
+/*
+    Remove and free one Node from the front of the List.
+    Complexity: O(1).
+*/
 List List_pop(List ls) {
     if (ls.length) {
         ListNode *next = ls.head->next;
@@ -275,6 +326,10 @@ List List_pop(List ls) {
 }
 
 
+/*
+    Remove and free one Node from the back of the List.
+    Complexity: O(1).
+*/
 List List_popTail(List ls) {
     if (ls.length)
         return List_remove(ls, ls.length - 1);
@@ -289,6 +344,10 @@ List List_popTail(List ls) {
 }
 
 
+/*
+    Append one element to the front of the list.
+    Complexity: O(1).
+*/
 List List_prepend(List ls, void *elem) {
     ListNode *new = (ListNode *) malloc(sizeof(ListNode));
     new->data = (*ls.copy)(elem);
@@ -303,6 +362,12 @@ List List_prepend(List ls, void *elem) {
 }
 
 
+/*
+    Print list to stdout.
+    Prints meta-attributes as well as all elements.
+    A print function is required to define how to print individual elements.
+    Complexity: O(n).
+*/
 void List_print(List ls) {
     printf("Length: %zu,\n", ls.length);
 
@@ -357,6 +422,12 @@ void List_print(List ls) {
 }
 
 
+/*
+    Print list to stdout.
+    Prints all elements. Does not print meta-attributes.
+    A function is required to define how to print individual elements.
+    Complexity: O(n).
+*/
 void List_printData(List ls) {
     if (ls.print) {
         printf("{");
@@ -379,6 +450,10 @@ void List_printData(List ls) {
 }
 
 
+/*
+    Remove and free one Node at a given index in the List.
+    Complexity: O(index).
+*/
 List List_remove(List ls, size_t idx) {
     if (idx == 0)
         return List_pop(ls);
@@ -416,6 +491,10 @@ List List_remove(List ls, size_t idx) {
 }
 
 
+/*
+    Override the value of the element located at a given index in the List.
+    Complexity: O(index).
+*/
 List List_set(List ls, size_t idx, void *elem) {
     if (idx < ls.length) {
         ListNode *cursor;
@@ -444,6 +523,13 @@ List List_set(List ls, size_t idx, void *elem) {
 }
 
 
+/*
+    Sort the List according to a given ordering.
+    Uses the merge sort algorithm.
+    For all elements of index n, comparing elements n and n + 1 will return a
+    value less than or equal to 0.
+    Complexity O(n*lg(n)). Spacial complexity: O(1).
+*/
 List List_sort(List ls) {
     if (ls.compare) {
         ListNode *left, *right;
