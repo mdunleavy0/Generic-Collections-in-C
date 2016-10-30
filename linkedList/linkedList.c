@@ -66,7 +66,7 @@ List List_construct(void *(*copy)(void *), void (*del)(void *)) {
 
 /*
     Destructor function for List.
-    Frees all Nodes and resets meta-attributes.
+    Frees all nodes and resets meta-attributes.
     Complexity: O(n).
 */
 List List_destruct(List ls) {
@@ -133,7 +133,7 @@ bool List_contains(List ls, void *elem) {
 
 
 /*
-    Remove and free all Nodes in the List.
+    Remove and free all nodes in the List.
     Complexity: O(n).
 */
 List List_empty(List ls) {
@@ -309,7 +309,7 @@ List List_insertInOrder(List ls, void *elem) {
 
 
 /*
-    Remove and free one Node from the front of the List.
+    Remove and free one node from the front of the List.
     Complexity: O(1).
 */
 List List_pop(List ls) {
@@ -338,7 +338,7 @@ List List_pop(List ls) {
 
 
 /*
-    Remove and free one Node from the back of the List.
+    Remove and free one node from the back of the List.
     Complexity: O(1).
 */
 List List_popTail(List ls) {
@@ -461,7 +461,7 @@ void List_printData(List ls) {
 
 
 /*
-    Remove and free one Node at a given index in the List.
+    Remove and free one node at a given index in the List.
     Complexity: O(index).
 */
 List List_remove(List ls, size_t idx) {

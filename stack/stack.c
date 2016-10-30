@@ -23,8 +23,8 @@ Stack Stack_destruct(Stack);
 Stack Stack_empty(Stack);
 void *Stack_head(Stack);
 Stack Stack_pop(Stack);
-Stack Stack_push(Stack, void *);
 void Stack_print(Stack);
+Stack Stack_push(Stack, void *);
 
 
 /*
@@ -39,7 +39,7 @@ Stack Stack_construct(void *(*copy)(void *), void (*del)(void *)) {
 
 /*
     Destructor function for Stack.
-    Frees all Nodes and resets meta-attributes.
+    Frees all nodes and resets meta-attributes.
     Complexity: O(n).
 */
 Stack Stack_destruct(Stack stk) {
@@ -48,7 +48,7 @@ Stack Stack_destruct(Stack stk) {
 
 
 /*
-    Remove and free all Nodes in the Stack.
+    Remove and free all nodes in the Stack.
     Complexity: O(n).
 */
 Stack Stack_empty(Stack stk) {
@@ -66,20 +66,11 @@ void *Stack_head(Stack stk) {
 
 
 /*
-    Remove and free one Node from the front of the Stack.
+    Remove and free one node from the front of the Stack.
     Complexity: O(1).
 */
 Stack Stack_pop(Stack stk) {
     return List_pop(stk);
-}
-
-
-/*
-    Prepend one element to the front of the Stack.
-    Complexity: O(1).
-*/
-Stack Stack_push(Stack stk, void *elem) {
-    return List_prepend(stk, elem);
 }
 
 
@@ -118,4 +109,13 @@ void Stack_print(Stack stk) {
     else
         printf("None");
     printf("\n\n");
+}
+
+
+/*
+    Prepend one element to the front of the Stack.
+    Complexity: O(1).
+*/
+Stack Stack_push(Stack stk, void *elem) {
+    return List_prepend(stk, elem);
 }
