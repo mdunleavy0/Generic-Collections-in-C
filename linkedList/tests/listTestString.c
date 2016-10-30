@@ -132,7 +132,7 @@ int main(void) {
 
     puts("HEAD");
     for (i = 0; i < SIZE; i++) {
-        printf("Tail: ");
+        printf("Head: ");
         printStr(List_head(ls));
         putchar('\n');
         ls = List_pop(ls);

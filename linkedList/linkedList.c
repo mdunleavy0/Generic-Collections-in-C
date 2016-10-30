@@ -356,7 +356,7 @@ List List_popTail(List ls) {
 
 
 /*
-    Prepend one element to the front of the list.
+    Prepend one element to the front of the List.
     Complexity: O(1).
 */
 List List_prepend(List ls, void *elem) {
@@ -421,9 +421,8 @@ void List_print(List ls) {
         else
             printf("Unknown - print method undefined");
     }
-    else {
+    else
         printf("None");
-    }
     printf(",\n");
 
     printf("Data: ");
